@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="ta">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y-Diet: மறைக்கப்பட்ட பசி / Hidden Hunger</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        /* Language Selector Styles */
+        .language-selector {
+            text-align: right;
+            padding: 10px 15px;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+        }
+        .language-selector a {
+            color: #00796b;
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .current-lang {
+            color: #ff5722 !important; /* Highlight current language */
+        }
+        /* Language Specific Content Toggle */
+        .content-en { display: none; } /* Default: Hide English content */
+        .content-ta { display: block; } /* Default: Show Tamil content */
+
+        /* Banner and general styles remain the same for both languages for consistency */
+        .banner {
+            width: 100%;
+            height: 150px;
+            background-image: url('banner004.png'); /* Replace with your actual banner image path */
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding-top: 50px;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+        }
+        h1 {
+            font-size: 1.6em;
+            color: #ff5722;
+            padding: 15px;
+            margin-top: 0;
+            text-align: center;
+        }
+        h2 {
+            font-size: 1.3em;
+            color: #4CAF50;
+            padding: 10px 15px;
+            border-bottom: 2px solid #eee;
+        }
+        p, ul, .step-box {
+            padding: 0 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        .highlight {
+            background-color: #ffe0b2;
+            font-weight: bold;
+            padding: 2px 4px;
+            border-radius: 3px;
+            white-space: nowrap;
+        }
+        /* Smart Swaps Table Layout */
+        .smart-swap-table {
+            display: flex;
+            overflow-x: auto;
+            padding: 15px 0;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+        .swap-card {
+            flex: 0 0 90%;
+            margin: 0 10px;
+            padding: 15px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            scroll-snap-align: start;
+        }
+        .swap-card h3 {
+            color: #00796b;
+            font-size: 1.1em;
+            margin-top: 0;
+        }
+        .step-box {
+            background-color: #fff3e0;
+            padding: 10px;
+            margin: 10px 15px;
+            border-left: 5px solid #ff9800;
+            border-radius: 4px;
+        }
+        .logo-section {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 15px;
+            border-top: 1px solid #eee;
+        }
+        .logo-section img {
+            max-width: 50px;
+            height: auto;
+        }
+        .disclaimer {
+            font-size: 0.8em;
+            color: #666;
+            padding: 15px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="language-selector">
+            Language: <a onclick="setLang('ta')" id="lang-ta">தமிழ் (TA)</a> | <a onclick="setLang('en')" id="lang-en">English (EN)</a>
+        </div>
+
+        <div class="content-ta" id="content-ta">
+            <div class="banner">
+                🤩 உங்களுக்கான டயட் ஹேக்ஸ்: ஸ்மார்ட்டாக சாப்பிடு!
+            </div>
+
+            <h1>Y-Diet மூலம் மறைக்கப்பட்ட பசியை (Hidden Hunger) வெல்வோம்!</h1>
+
+            <p>நம்ம சாப்பிடுற சாப்பாடு வயித்தை நிரப்பினாலும், அதுல சில <span class="highlight">'சூப்பர் சத்துக்கள்' (Micronutrients)</span> இல்லைன்னா, அதுதான் <span class="highlight">"மறைக்கப்பட்ட பசி" (Hidden Hunger)</span>. வெளியில தெரியாது, ஆனா உங்க எனர்ஜி, முடி வளர்ச்சி, ஃபோகஸ் எல்லாம் குறையும்.</p>
+
+            <h2>🤔 ஏன் இந்த "மறைக்கப்பட்ட பசி"?</h2>
+            <ul>
+                <li>  குறைந்த சத்து:   நம்ம டயட்ல <span class="highlight">"குவாலிட்டி கம்மி, குவான்ட்டிட்டி அதிகம்" (Quality < Quantity)</span> இருக்கறதுதான் காரணம்!</li>
+                <li>  சத்துத் திருடர்கள்:   சாப்பாட்டோட டீ/காபி குடிக்கறீங்களா? அதுல இருக்கிற <span class="highlight">டானின்கள் (Tannins)</span>, இரும்புச் சத்து (Iron) உங்க உடம்புல சேர்றதைத் தடுக்கும்!</li>
+                <li>  சூரிய ஒளி இல்லை:   ஃபுல்லா வீட்டுக்குள்ளேயே இருக்கிறது. இதனால, உங்க உடம்புக்குத் தேவையான <span class="highlight">வைட்டமின் D (Vitamin D)</span> கிடைக்காது.</li>
+            </ul>
+
+            <h2>✨ Y-Diet தீர்வு: ஸ்மார்ட் மாற்றங்கள் (Smart Swaps)</h2>
+
+            <p style="padding: 0 15px; font-style: italic; color: #666;">பக்கவாட்டில் ஸ்க்ரோல் செய்து மாற்றங்களைப் பாருங்கள் 👇</p>
+
+            <div class="smart-swap-table">
+                
+                <div class="swap-card">
+                    <h3>சவால் 1: உணவோடு டீ/காபி</h3>
+                    <p><strong>Y-Diet ஸ்மார்ட் மாற்றம்:</strong> ☕ உணவுக்குப் பிறகு <span class="highlight">1–2 மணி நேரம் கழிச்சு</span> குடிங்க.</p>
+                    <p><strong>சூப்பர் பவர்:</strong> டானின் தலையீட்டைக் குறைத்து, <span class="highlight">இரும்புச் சத்து உறிஞ்சுதலை (Iron Absorption)</span> கணிசமாக அதிகரிக்கும்.</p>
+                </div>
+
+                <div class="swap-card">
+                    <h3>சவால் 2: வெள்ளை அரிசி மட்டும்</h3>
+                    <p><strong>Y-Diet ஸ்மார்ட் மாற்றம்:</strong> 🍚 <span class="highlight">சிறு தானியங்கள் (Millets)</span> கலந்த உணவுகள், <span class="highlight">முழு தானியங்கள் (Whole Grains)</span> சாப்பிடுங்க.</p>
+                    <p><strong>சூப்பர் பவர்:</strong> அதிக <span class="highlight">நார்ச்சத்து (Fiber)</span>, <span class="highlight">இரும்பு</span> & <span class="highlight">துத்தநாகம் (Zinc)</span> கிடைக்கும்.</p>
+                </div>
+
+                <div class="swap-card">
+                    <h3>சவால் 3: பொரிச்ச ஸ்நாக்ஸ்</h3>
+                    <p><strong>Y-Diet ஸ்மார்ட் மாற்றம்:</strong> <span class="highlight">முளைகட்டிய பயறு சுண்டல் (Sprouted Pulses)</span> அல்லது <span class="highlight">எலுமிச்சை/மாங்காய்</span> சேர்த்த சாட் சாப்பிடுங்க.</p>
+                    <p><strong>சூப்பர் பவர்:</strong> சத்து உறிஞ்சும் திறன் <span class="highlight">(Bioavailability)</span> அதிகமாகும்; <span class="highlight">வைட்டமின் C</span> சேரும்.</p>
+                </div>
+
+                <div class="swap-card">
+                    <h3>சவால் 4: லேட்டா சாப்பிடுவது</h3>
+                    <p><strong>Y-Diet ஸ்மார்ட் மாற்றம்:</strong> 🥣 <span class="highlight">விரைவான, இலகுவான இரவு உணவை (Early-Light Dinner - ELD)</span> 8 மணிக்குள்ள முடிங்க.</p>
+                    <p><strong>சூப்பர் பவர்:</strong> செரிமானம் <span class="highlight">(Digestion)</span> ஈஸியாகும், நல்ல தூக்கம் வரும்.</p>
+                </div>
+            </div>
+
+            <h2>🚀 பழக்கவழக்கங்கள் (Habitome): உங்களுக்கான எனர்ஜி பூஸ்டர்!</h2>
+
+            <p>நீங்க என்ன சாப்பிடுறீங்கன்னு மட்டும் இல்ல, <span class="highlight">எப்படித் தயாரிக்கிறீங்க</span>ங்கறதும் ரொம்ப முக்கியம்!</p>
+
+            <div class="step-box">
+                <h3>1. சத்து உறிஞ்சும் டெக்னிக்! (Bioavailability Boosting)</h3>
+                <p>சமைக்கிறதுக்கு முன்னாடி இந்த மூணு ஸ்டெப்ஸை ஃபாலோ பண்ணுங்க:</p>
+                <p style="text-align: center; font-size: 1.2em; font-weight: bold; color: #ff9800;">ஊறவைத்தல் --> முளைகட்டுதல் --> புளிக்க வைத்தல்</p>
+                <p>இது, தானியங்கள்ல இருக்கிற கெட்ட சத்துக்களை நீக்கி, <span class="highlight">இரும்பு (Iron)</span> மற்றும் <span class="highlight">துத்தநாகம் (Zinc)</span> உடம்புல முழுசா சேர்றதை உறுதி செய்யும்.</p>
+            </div>
+
+            <div class="step-box">
+                <h3>2. உங்களுக்கான டிப்ஸ்! (Life-stage Focus)</h3>
+                <ul>
+                    <li>  பெண் பிள்ளைகளுக்கு (Anaemia Care):   ராகி (Ragi) உணவுகளோடு <span class="highlight">வைட்டமின் C நிறைந்த பழங்கள்</span> (கொய்யா, ஆரஞ்சு) சேர்த்துக்கோங்க. இது <span class="highlight">இரத்த சோகையை (Anemia)</span> தடுக்கும்.</li>
+                    <li>  எலும்பு, தசை வலிமைக்கு:   தினசரி கொஞ்ச நேரம் <span class="highlight">வெயிலில் (Sun)</span> நில்லுங்க. முட்டையின் மஞ்சள் கரு, சிறு மீன்கள், நட்ஸ் சாப்பிடுங்க.</li>
+                </ul>
+            </div>
+            
+            <div class="logo-section">
+                <img src="logo1.jpeg" alt="Y2Z Logo">
+                <img src="logo2.jpeg" alt="Partner Logo 2">
+                <img src="logo3.jpeg" alt="Partner Logo 3">
+                <img src="logo4.jpg" alt="Partner Logo 4">
+            </div>
+            
+            <p class="disclaimer"><strong>Y2Z Life Systems (Y-Diet & Habitome Project)</strong></p>
+            <p class="disclaimer"><strong>Associate Partner: Temple of Nature (TON, USA)</strong></p>
+            <p class="disclaimer"><strong>டிஸ்கிளைமர் (Disclaimer):</strong> இங்கு பகிரப்படுபவை பொதுக் கல்விக்கான வழிகாட்டுதல்கள் மட்டுமே. உங்கள் உடல்நிலைக்கு ஏற்ற உணவு முறை மற்றும் பழக்கவழக்கங்களை அறிய, விரைவில் வெளிவரும் Y2Z-ன் <span class="highlight">'Personalized Lifestyle and Diet Pattern'</span> திட்டத்தைப் பயன்படுத்தலாம்।</p>
+            <p class="disclaimer">© 2025 Y2Z Life Systems</p>
+        </div>
+        <div class="content-en" id="content-en">
+            <div class="banner">
+                🤩 YOUR DIET HACKS: EAT SMARTER!
+            </div>
+
+            <h1>Y-Diet: Defeating Hidden Hunger (Micronutrient Deficiency)</h1>
+
+            <p>Even if your meals fill your stomach, if they lack essential <span class="highlight">'Super Nutrients' (Micronutrients)</span>, it's called <span class="highlight">"Hidden Hunger"</span>. It's not visible, but it drains your energy, affects hair growth, and reduces your focus.</p>
+
+            <h2>🤔 Why Does Hidden Hunger Happen?</h2>
+            <ul>
+                <li>  Low Quality:   Our diet often has <span class="highlight">"Quality < Quantity"</span>, meaning high calories but low key nutrients.</li>
+                <li>  Nutrient Thieves:   Drinking tea/coffee with meals? The <span class="highlight">Tannins</span> in them block your body from absorbing <span class="highlight">Iron</span>!</li>
+                <li>  Lack of Sunlight:   Staying indoors most of the time means your body can't make enough <span class="highlight">Vitamin D</span>.</li>
+            </ul>
+
+            <h2>✨ Y-Diet Solution: Smart Swaps</h2>
+
+            <p style="padding: 0 15px; font-style: italic; color: #666;">Scroll sideways to see the swaps 👇</p>
+
+            <div class="smart-swap-table">
+                
+                <div class="swap-card">
+                    <h3>Challenge 1: Tea/Coffee with Meals</h3>
+                    <p><strong>Y-Diet Smart Swap:</strong> ☕ Drink your beverage <span class="highlight">1–2 hours after</span> your meal.</p>
+                    <p><strong>Super Power:</strong> Reduces tannin interference, significantly boosting <span class="highlight">Iron Absorption</span>.</p>
+                </div>
+
+                <div class="swap-card">
+                    <h3>Challenge 2: White Rice Only</h3>
+                    <p><strong>Y-Diet Smart Swap:</strong> 🍚 Use a mix of <span class="highlight">Millets</span> (Kambu/Thinai) or <span class="highlight">Whole Grains</span> + pulses.</p>
+                    <p><strong>Super Power:</strong> Increases <span class="highlight">Fiber</span>, <span class="highlight">Iron</span>, and <span class="highlight">Zinc</span> content.</p>
+                </div>
+
+                <div class="swap-card">
+                    <h3>Challenge 3: Deep-Fried Snacks</h3>
+                    <p><strong>Y-Diet Smart Swap:</strong> Choose <span class="highlight">Sprouted Pulse Chaat</span> or raw mango/lime-added snacks.</p>
+                    <p><strong>Super Power:</strong> Boosts <span class="highlight">Bioavailability</span>; adds <span class="highlight">Vitamin C</span> (an absorption enhancer).</p>
+                </div>
+
+                <div class="swap-card">
+                    <h3>Challenge 4: Eating Dinner Late</h3>
+                    <p><strong>Y-Diet Smart Swap:</strong> 🥣 Have an <span class="highlight">Early-Light Dinner (ELD)</span> before 8 PM.</p>
+                    <p><strong>Super Power:</strong> Aids <span class="highlight">Digestion</span> and promotes better sleep.</p>
+                </div>
+            </div>
+
+            <h2>🚀 Habits (Habitome): Your Energy Booster!</h2>
+
+            <p>It's not just what you eat, but <span class="highlight">how you prepare it</span> that matters!</p>
+
+            <div class="step-box">
+                <h3>1. Nutrient Absorption Technique! (Bioavailability Boosting)</h3>
+                <p>Follow these three traditional steps before cooking:</p>
+                <p style="text-align: center; font-size: 1.2em; font-weight: bold; color: #ff9800;">Soaking --> Sprouting --> Fermentation</p>
+                <p>This process removes anti-nutrients and ensures maximum absorption of <span class="highlight">Iron</span> and <span class="highlight">Zinc</span>.</p>
+            </div>
+
+            <div class="step-box">
+                <h3>2. Tips for Your Life Stage! (Life-stage Focus)</h3>
+                <ul>
+                    <li>  For Teen Girls (Anaemia Care):   Pair Ragi dishes with <span class="highlight">Vitamin C-rich fruits</span> (Guava, Orange). This helps prevent <span class="highlight">Anaemia</span>.</li>
+                    <li>  For Bone & Muscle Strength:   Spend a little time in the <span class="highlight">Sun</span> daily. Eat egg yolks, small fish, and nuts.</li>
+                </ul>
+            </div>
+            
+            <div class="logo-section">
+                <img src="logo1.jpeg" alt="Y2Z Logo">
+                <img src="logo2.jpeg" alt="Partner Logo 2">
+                <img src="logo3.jpeg" alt="Partner Logo 3">
+                <img src="logo4.jpg" alt="Partner Logo 4">
+            </div>
+            
+            <p class="disclaimer"><strong>Y2Z Life Systems (Y-Diet & Habitome Project)</strong></p>
+            <p class="disclaimer"><strong>Associate Partner: Temple of Nature (TON, USA)</strong></p>
+            <p class="disclaimer"><strong>Disclaimer:</strong> This information is for general education only. For a personalized diet plan tailored to your health, please check out Y2Z's upcoming <span class="highlight">'Personalized Lifestyle and Diet Pattern'</span> program.</p>
+            <p class="disclaimer">© 2025 Y2Z Life Systems</p>
+        </div>
+        </div>
+
+    <script>
+        // Default language setting and loading
+        document.addEventListener('DOMContentLoaded', () => {
+            const defaultLang = 'ta'; // Set Tamil as default
+            const savedLang = localStorage.getItem('userLang') || defaultLang;
+            setLang(savedLang);
+        });
+
+        function setLang(lang) {
+            const taContent = document.getElementById('content-ta');
+            const enContent = document.getElementById('content-en');
+            const langTaLink = document.getElementById('lang-ta');
+            const langEnLink = document.getElementById('lang-en');
+
+            if (lang === 'en') {
+                taContent.style.display = 'none';
+                enContent.style.display = 'block';
+                langTaLink.classList.remove('current-lang');
+                langEnLink.classList.add('current-lang');
+                document.documentElement.lang = 'en'; // Change HTML lang attribute
+            } else {
+                taContent.style.display = 'block';
+                enContent.style.display = 'none';
+                langEnLink.classList.remove('current-lang');
+                langTaLink.classList.add('current-lang');
+                document.documentElement.lang = 'ta'; // Change HTML lang attribute
+            }
+
+            // Save preference to local storage
+            localStorage.setItem('userLang', lang);
+        }
+    </script>
+</body>
+</html>
